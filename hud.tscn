@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dkpmo8vlleqk7"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Health" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Icon" type="Sprite2D" parent="Health"]
+position = Vector2(68.75, 58.25)
+scale = Vector2(0.51992, 0.524876)
+
+[node name="HealthLabel" type="Label" parent="Health"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="HealthBar" type="ProgressBar" parent="Health"]
+modulate = Color(1, 0, 0.141176, 1)
+layout_mode = 0
+offset_left = 138.0
+offset_top = 43.0
+offset_right = 397.0
+offset_bottom = 70.0
+rounded = true
