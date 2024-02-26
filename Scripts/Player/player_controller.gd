@@ -1,4 +1,4 @@
-extends CharacterBody3D
+extends Character
 
 @export var SPEED : float = 5.0
 @export var JUMP_VELOCITY : float = 4.5
@@ -54,8 +54,8 @@ func _ready():
 
 	# Get mouse input
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	CAMERA_CONTROLLER = $CameraController
-	GUN_CONTROLLER = $CameraController/GunController
+	CAMERA_CONTROLLER = $Armature
+	GUN_CONTROLLER = $Armature/GunController
 
 func _physics_process(delta):
 	
@@ -68,7 +68,11 @@ func _physics_process(delta):
 
 	# Handle Fire.
 	if Input.is_action_just_pressed("primary_fire"):
-		GUN_CONTROLLER.fire()
+		self.fire()
+
+	# Handle Reload.
+	if Input.is_action_just_pressed("reload"):
+		self.reload()
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -77,10 +81,10 @@ func _physics_process(delta):
 	# Handle Aim.
 	if Input.is_action_pressed("aim"):
 		GUN_CONTROLLER.transform.origin = lerp(GUN_CONTROLLER.transform.origin, Vector3(0, -0.1, -0.8), 0.25)
-		$CameraController/Camera3D.fov = lerp($CameraController/Camera3D.fov, 50.0, 0.25)
+		$Armature/Camera3D.fov = lerp($Armature/Camera3D.fov, 50.0, 0.25)
 	else:
 		GUN_CONTROLLER.transform.origin = lerp(GUN_CONTROLLER.transform.origin, Vector3(0.2, -0.2, -0.8), 0.25)
-		$CameraController/Camera3D.fov = lerp($CameraController/Camera3D.fov, 75.0, 0.25)
+		$Armature/Camera3D.fov = lerp($Armature/Camera3D.fov, 75.0, 0.25)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
