@@ -6,16 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://bujwwy5ekl7m8" path="res://ppk.glb" id="4_kr6fu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bvvd5"]
+radius = 0.3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xem40"]
 albedo_texture = ExtResource("1_s41ln")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vh34g"]
 material = SubResource("StandardMaterial3D_xem40")
+radius = 0.3
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER")]
+[node name="CharacterBody3D" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01592, 0)
 script = ExtResource("1_cjxm5")
-CAMERA_CONTROLLER = NodePath("CameraController/Camera3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_bvvd5")
@@ -24,9 +26,14 @@ shape = SubResource("CapsuleShape3D_bvvd5")
 mesh = SubResource("CapsuleMesh_vh34g")
 
 [node name="CameraController" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.643964, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="CameraController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 100, 1.26999e-08, 0, -1.06499)
+target_position = Vector3(0, 0, -1)
+hit_back_faces = false
 
 [node name="Camera3D" type="Camera3D" parent="CameraController"]
-transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 0, 2, 0)
 
 [node name="HUD" parent="CameraController/Camera3D" instance=ExtResource("3_ryr64")]
 mouse_filter = 2
@@ -35,10 +42,8 @@ mouse_force_pass_scroll_events = false
 [node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
 update_mode = 1
 
-[node name="ppk" parent="CameraController/Camera3D" instance=ExtResource("4_kr6fu")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.75, -0.5, -1.5)
+[node name="GunController" type="Node3D" parent="CameraController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.2, -0.8)
 
-[node name="RayCast3D" type="RayCast3D" parent="CameraController/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 100, 1.26999e-08, 0, -1.06499)
-target_position = Vector3(0, 0, -1)
-hit_back_faces = false
+[node name="ppk" parent="CameraController/GunController" instance=ExtResource("4_kr6fu")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

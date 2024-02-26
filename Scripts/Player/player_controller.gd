@@ -5,7 +5,8 @@ extends CharacterBody3D
 @export var MOUSE_SENSITIVITY : float = 0.5
 @export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 @export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
-@export var CAMERA_CONTROLLER : Camera3D
+@export var CAMERA_CONTROLLER : Node3D
+@export var GUN_CONTROLLER : Node3D
 @export var HEALTH : float = 100.0
 
 
@@ -53,6 +54,8 @@ func _ready():
 
 	# Get mouse input
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	CAMERA_CONTROLLER = $CameraController
+	GUN_CONTROLLER = $CameraController/GunController
 
 func _physics_process(delta):
 	
@@ -66,6 +69,14 @@ func _physics_process(delta):
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+
+	# Handle aim.
+	if Input.is_action_pressed("aim"):
+		GUN_CONTROLLER.transform.origin = lerp(GUN_CONTROLLER.transform.origin, Vector3(0, -0.1, -0.8), 0.25)
+		$CameraController/Camera3D.fov = lerp($CameraController/Camera3D.fov, 50.0, 0.25)
+	else:
+		GUN_CONTROLLER.transform.origin = lerp(GUN_CONTROLLER.transform.origin, Vector3(0.2, -0.2, -0.8), 0.25)
+		$CameraController/Camera3D.fov = lerp($CameraController/Camera3D.fov, 75.0, 0.25)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
