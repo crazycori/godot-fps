@@ -66,11 +66,15 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
+	# Handle Fire.
+	if Input.is_action_just_pressed("primary_fire"):
+		GUN_CONTROLLER.fire()
+
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Handle aim.
+	# Handle Aim.
 	if Input.is_action_pressed("aim"):
 		GUN_CONTROLLER.transform.origin = lerp(GUN_CONTROLLER.transform.origin, Vector3(0, -0.1, -0.8), 0.25)
 		$CameraController/Camera3D.fov = lerp($CameraController/Camera3D.fov, 50.0, 0.25)
