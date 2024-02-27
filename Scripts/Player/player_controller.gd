@@ -80,10 +80,10 @@ func _physics_process(delta):
 
 	# Handle Aim.
 	if Input.is_action_pressed("aim"):
-		GUN_CONTROLLER.transform.origin = lerp(GUN_CONTROLLER.transform.origin, Vector3(0, -0.1, -0.8), 0.25)
+		GUN_CONTROLLER.transform.origin = lerp(GUN_CONTROLLER.transform.origin, GUN_CONTROLLER.get_children()[0].position_aim, 0.25)
 		$Armature/Camera3D.fov = lerp($Armature/Camera3D.fov, 50.0, 0.25)
 	else:
-		GUN_CONTROLLER.transform.origin = lerp(GUN_CONTROLLER.transform.origin, Vector3(0.2, -0.2, -0.8), 0.25)
+		GUN_CONTROLLER.transform.origin = lerp(GUN_CONTROLLER.transform.origin, GUN_CONTROLLER.get_children()[0].position_default, 0.25)
 		$Armature/Camera3D.fov = lerp($Armature/Camera3D.fov, 75.0, 0.25)
 
 	# Get the input direction and handle the movement/deceleration.

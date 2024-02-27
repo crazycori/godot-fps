@@ -15,7 +15,7 @@ func fire():
 		print(target)
 		# target.HEALTH -= GUN.damage
 	else:
-		print("out of ammo!")
+		print("out of ammo or fire rate exceeded")
 
 func reload():
 	print("reloading gun!")

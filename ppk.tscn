@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj3ckh2v5cyuo"]
+
+[ext_resource type="PackedScene" uid="uid://bujwwy5ekl7m8" path="res://ppk.glb" id="1_n70w3"]
+[ext_resource type="AudioStream" uid="uid://couyxir5o2swq" path="res://ppk_fire.wav" id="2_7uoef"]
+[ext_resource type="Script" path="res://ppk.gd" id="2_vp44b"]
+[ext_resource type="AudioStream" uid="uid://blipl0gq16t1" path="res://ppk_reload.wav" id="3_o1f8n"]
+[ext_resource type="AudioStream" uid="uid://c60q2jh41vv5g" path="res://ppk_no_ammo.wav" id="5_v5drw"]
+
+[node name="ppk" instance=ExtResource("1_n70w3")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+script = ExtResource("2_vp44b")
+
+[node name="AudioGunshot" type="AudioStreamPlayer3D" parent="." index="11"]
+stream = ExtResource("2_7uoef")
+
+[node name="AudioReload" type="AudioStreamPlayer3D" parent="." index="12"]
+stream = ExtResource("3_o1f8n")
+
+[node name="AudioEmpty" type="AudioStreamPlayer3D" parent="." index="13"]
+stream = ExtResource("5_v5drw")
